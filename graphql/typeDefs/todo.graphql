@@ -9,3 +9,14 @@ type Query {
     todo(id: String): Todo
     todos: [Todo]
 }
+
+input Input {
+  userId: Int
+  id: Int!
+  title: String
+  completed: Boolean
+}
+
+type Mutation {
+  AddTodo(userInput: Input): Todo
+}

@@ -1,4 +1,6 @@
-import { TodoHandlerImplementation } from "../classes/TodoHandler/TodoHandler"
+import { TodoDbManager } from "../classes/DbManager/TodoDbManager";
+import { TodoHandlerImplementation } from "../classes/TodoHandler/TodoHandler";
+import { Todo } from '../classes/TodoHandler/types';
 
 export const TodoResolver = {
     Query: {
@@ -13,5 +15,16 @@ export const TodoResolver = {
             return todo;
         },
     },
-    Mutation: {},
+    Mutation: {
+        async AddTodo(_: any, { userInput }: { userInput: Todo }) {
+            try {
+                const todoDb = new TodoDbManager();
+                const insertResult = await todoDb.insertTodo(userInput);
+                return insertResult;
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+    },
 };

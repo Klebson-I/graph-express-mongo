@@ -15,4 +15,7 @@ export const resolvers = {
     Query: {
         ...TodoResolver.Query,
     },
+    Mutation: {
+        ...TodoResolver.Mutation,
+    }
 }

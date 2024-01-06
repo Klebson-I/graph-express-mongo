@@ -30,6 +30,6 @@ export class TodoDbManager {
     }
 
     async insertTodo(todo: Todo) {
-        return this.collection?.insertMany(todo);
+        return this.collection?.create(todo);
     }
 }
