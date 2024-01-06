@@ -1,34 +1,18 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { TodoResolver } from './resolvers/todo.resolver';
+
+const todoTypes = readFileSync(
+    join(__dirname, './typeDefs/todo.graphql'),
+    { encoding: 'utf-8' },
+);
+
 export const typeDefs = `
-    type User {
-        id: String!
-        email: String!
-        username: String
-    }
-
-    type Query {
-        user(id: String!): User
-        users: [User]
-    }
-
-    type UserInput {
-        email: String!
-        username: String!
-        id: String!
-    }
-
-    type Mutation {
-        createUser: User
-    }
+    ${todoTypes}
 `;
 
 export const resolvers = {
     Query: {
-        users() {
-            return [{username: 'ok', email: 'ok', id: 'ok'}]
-        },
-        user() {
-            return {username: 'ok', email: 'ok', id: 'ok'}
-        },
+        ...TodoResolver.Query,
     },
-    Mutation: {},
 }

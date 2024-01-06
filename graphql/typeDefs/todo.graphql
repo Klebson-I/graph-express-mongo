@@ -1,0 +1,11 @@
+type Todo {
+  userId: Int
+  id: Int!
+  title: String
+  completed: Boolean
+}
+
+type Query {
+    todo(id: String): Todo
+    todos: [Todo]
+}
