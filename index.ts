@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './graphql/index';
+import mongoose from 'mongoose';
+import { DbManagerImplementation } from './graphql/classes/DbManager/DbManager';
 
 dotenv.config();
 const app = express();
@@ -16,6 +18,9 @@ const startServer = async () => {
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
     app.use('/', expressMiddleware(apolloServer));
+
+    const mongo = await mongoose.connect(`${process.env.MONGODB_CONNECTION}`);
+    new DbManagerImplementation(mongo);
 
     app.listen(process.env.APP_PORT, () => {
         console.log(`App is running on localhost:${process.env.APP_PORT} !`);
