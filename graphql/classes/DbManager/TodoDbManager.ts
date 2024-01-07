@@ -42,8 +42,13 @@ export class TodoDbManager {
     }
 
     async updateTodo(todo: Todo) {
-        return this.collection?.updateOne({ id: todo.id}, { $set: {
-            title: todo.title
-        } });
+        const doc = await this.collection?.findOne({ id: todo.id});
+        if (!doc) {
+            return;
+        }
+        doc.title = todo.title;
+        doc.completed = todo.completed;
+        doc.userId = todo.userId;
+        return doc.save();
     }
 }
