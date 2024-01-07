@@ -17,14 +17,20 @@ export const TodoResolver = {
     },
     Mutation: {
         async AddTodo(_: any, { userInput }: { userInput: Todo }) {
-            try {
-                const todoDb = new TodoDbManager();
-                const insertResult = await todoDb.insertTodo(userInput);
-                return insertResult;
-            }
-            catch (e) {
-                console.log(e);
-            }
+            const todoDb = new TodoDbManager();
+            const insertResult = await todoDb.insertTodo(userInput);
+            return insertResult;
+        },
+        async DeleteTodo(_: any, { userInput: {id} }: {userInput: {id: number}}) {
+            const todoDb = new TodoDbManager();
+            const insertResult = await todoDb.deleteTodo(String(id));
+            return insertResult;
+        },
+        async UpdateTodo(_: any, { userInput }: { userInput: Todo }) {
+            const todoDb = new TodoDbManager();
+            const updateResult = await todoDb.updateTodo(userInput);
+            console.log(updateResult)
+            return updateResult;
         }
     },
 };

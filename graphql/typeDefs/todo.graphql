@@ -6,17 +6,35 @@ type Todo {
 }
 
 type Query {
-    todo(id: String): Todo
-    todos: [Todo]
+  todo(id: String): Todo
+  todos: [Todo]
 }
 
-input Input {
+type DeleteTodoResult {
+  acknowledged: Boolean
+  deletedCount: Int
+}
+
+input AddTodoInput {
   userId: Int
   id: Int!
   title: String
   completed: Boolean
 }
 
+input UpdateTodoInput {
+  userId: Int
+  id: Int!
+  title: String
+  completed: Boolean
+}
+
+input DeleteTodoInput {
+  id: Int!
+}
+
 type Mutation {
-  AddTodo(userInput: Input): Todo
+  AddTodo(userInput: AddTodoInput): Todo
+  DeleteTodo(userInput: DeleteTodoInput): DeleteTodoResult
+  UpdateTodo(userInput: UpdateTodoInput): Todo
 }

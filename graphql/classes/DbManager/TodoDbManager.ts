@@ -25,11 +25,25 @@ export class TodoDbManager {
         return this.collection?.findOne({ id });
     }
 
-    async findTodos() {
+    async findAllTodos() {
         return this.collection?.find({});
     }
 
     async insertTodo(todo: Todo) {
         return this.collection?.create(todo);
+    }
+
+    async deleteTodo(id: string) {
+        return this.collection?.deleteOne({ id });
+    }
+
+    async deleteAllTodos() {
+        return this.collection?.deleteMany({});
+    }
+
+    async updateTodo(todo: Todo) {
+        return this.collection?.updateOne({ id: todo.id}, { $set: {
+            title: todo.title
+        } });
     }
 }
