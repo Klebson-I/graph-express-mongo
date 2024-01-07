@@ -7,24 +7,12 @@ export class TodoHandlerImplementation implements TodoHandler {
     constructor() {}
 
     async getTodo(id: string): Promise<Todo> {
-        const {data: todo} = await axios({
-            method: 'GET',
-            headers: {
-                "Content-Type": 'application/json',
-            },
-            url: `${this.url}/${id}`,
-        }) as GetTodoDto;
+        const {data: todo} = await axios.get(`${this.url}/${id}`) as GetTodoDto;
         return todo;
     }
 
     async getAllTodos(): Promise<Todo[]> {
-        const {data: todos} = await axios({
-            method: 'GET',
-            headers: {
-                "Content-Type": 'application/json',
-            },
-            url: this.url,
-        }) as GetAllTodosDto;
+        const {data: todos} = await axios.get(this.url) as GetAllTodosDto;
         return todos;
     }
 }
